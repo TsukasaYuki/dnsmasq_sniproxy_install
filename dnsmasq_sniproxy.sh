@@ -310,10 +310,10 @@ Install() {
       iptables -I INPUT -p tcp --dport 53 -j DROP
       iptables -I INPUT -p udp --dport 53 -j DROP
       iptables-save > /etc/iptables.up.rules
-      cat >  /etc/network/if-pre-up.d/iptables <<END
+      cat >  /etc/network/if-pre-up.d/iptables <<EOF
       #!/bin/sh
       /sbin/iptables-restore < /etc/iptables.up.rules
-      END
+      EOF
       chmod +x /etc/network/if-pre-up.d/iptables
   fi
   echo -e "[${green}Info${plain}] dnsmasq and sniproxy startup complete..."
