@@ -303,6 +303,17 @@ Install() {
       systemctl daemon-reload
       systemctl enable sniproxy > /dev/null 2>&1
       systemctl restart sniproxy || (echo -e "[${red}Error:${plain}] Failed to start sniproxy." && exit 1)
+      wget https://raw.githubusercontent.com/TsukasaYuki/dnsmasq_sniproxy_install/master/ipadd
+      wget https://raw.githubusercontent.com/TsukasaYuki/dnsmasq_sniproxy_install/master/ipdel
+      iptables -I INPUT -p tcp --dport 53 -j DROP
+      iptables -I INPUT -p udp --dport 53 -j DROP
+      chmod 777 ipadd
+      chmod 777 ipdel
+      cat >  /etc/network/if-pre-up.d/iptables <<END
+      #!/bin/sh
+      /sbin/iptables-restore < /etc/iptables.up.rules
+      END
+      chmod +x /etc/network/if-pre-up.d/iptables
   fi
   echo -e "[${green}Info${plain}] dnsmasq and sniproxy startup complete..."
   if check_sys packageManager yum; then
