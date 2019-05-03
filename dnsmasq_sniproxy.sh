@@ -232,7 +232,7 @@ Install() {
   elif check_sys packageManager apt; then
       error_detect_depends "apt-get -y install dnsmasq"
   fi
-  wget https://github.com/myxuchangbin/dnsmasq_sniproxy_install/raw/master/dnsmasq.conf -O /etc/dnsmasq.d/custom_netflix.conf >/dev/null 2>&1
+  wget https://github.com/TsukasaYuki/dnsmasq_sniproxy_install/raw/master/dnsmasq.conf -O /etc/dnsmasq.d/custom_netflix.conf >/dev/null 2>&1
   sed -i "s/PublicIP/`get_ip`/g" /etc/dnsmasq.d/custom_netflix.conf
   if check_sys packageManager yum; then
     if centosversion 6; then
@@ -279,9 +279,9 @@ Install() {
       ./autogen.sh && dpkg-buildpackage
       error_detect_depends "dpkg -i --no-debsig ../sniproxy_*.deb"
       wget https://github.com/dlundquist/sniproxy/raw/master/debian/init.d -O /etc/init.d/sniproxy >/dev/null 2>&1 && chmod +x /etc/init.d/sniproxy
-      wget https://github.com/myxuchangbin/dnsmasq_sniproxy_install/raw/master/sniproxy.default -O /etc/default/sniproxy >/dev/null 2>&1
+      wget https://github.com/TsukasaYuki/dnsmasq_sniproxy_install/raw/master/sniproxy.default -O /etc/default/sniproxy >/dev/null 2>&1
   fi
-  wget https://github.com/myxuchangbin/dnsmasq_sniproxy_install/raw/master/sniproxy.conf -O /etc/sniproxy.conf >/dev/null 2>&1
+  wget https://github.com/TsukasaYuki/dnsmasq_sniproxy_install/raw/master/sniproxy.conf -O /etc/sniproxy.conf >/dev/null 2>&1
   if [ ! -e /var/log/sniproxy ]; then
     mkdir /var/log/sniproxy
   fi
