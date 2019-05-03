@@ -1,5 +1,7 @@
 chmod 777 /root/ipadd
 chmod 777 /root/ipdel
+apt update -y
+apt install openssl -y
 iptables -I INPUT -p tcp --dport 53 -j DROP
 iptables -I INPUT -p udp --dport 53 -j DROP
 iptables-save > /etc/iptables.up.rules
