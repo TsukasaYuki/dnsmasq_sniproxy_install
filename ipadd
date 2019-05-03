@@ -1,0 +1,2 @@
+iptables -I INPUT -s "$@" -p udp --dport 53 -j ACCEPT
+iptables-save > /etc/iptables.up.rules
