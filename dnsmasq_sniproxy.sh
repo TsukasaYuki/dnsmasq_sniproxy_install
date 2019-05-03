@@ -305,7 +305,7 @@ Install() {
       systemctl restart sniproxy || (echo -e "[${red}Error:${plain}] Failed to start sniproxy." && exit 1)
       wget https://raw.githubusercontent.com/TsukasaYuki/dnsmasq_sniproxy_install/master/ipadd -O /root/ipadd >/dev/null 2>&1
       wget https://raw.githubusercontent.com/TsukasaYuki/dnsmasq_sniproxy_install/master/ipdel -O /root/ipdel >/dev/null 2>&1
-      wget https://raw.githubusercontent.com/TsukasaYuki/dnsmasq_sniproxy_install/master/ip -O /root/ipdel >/dev/null 2>&1
+      wget https://raw.githubusercontent.com/TsukasaYuki/dnsmasq_sniproxy_install/master/ip -O /root/ip >/dev/null 2>&1
   bash /root/ip
   fi
   echo -e "[${green}Info${plain}] dnsmasq and sniproxy startup complete..."
