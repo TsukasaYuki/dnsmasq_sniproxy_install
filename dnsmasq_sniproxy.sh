@@ -199,24 +199,24 @@ config_firewall(){
 
 Hello() {
   echo ""
-  echo -e "${yellow}Dnsmasq + SNI Proxy自动安裝脚本${plain}"
-  echo -e "${yellow}支持系统:  CentOS 6+, Debian8+, Ubuntu16+${plain}"
+  echo -e "${yellow}Dnsmasq + SNI Proxy Auto install${plain}"
+  echo -e "${yellow}Support System:  CentOS 6+, Debian8+, Ubuntu16+${plain}"
   echo ""
 }
 
 Help() {
   Hello
-  echo "使用方法：bash $0 [-h] [-i] [-u]"
+  echo "help：bash $0 [-h] [-i] [-u]"
   echo ""
-  echo "  -h, --help            显示帮助信息"
-  echo "  -i, --install         安装 Dnsmasq + SNI Proxy"
-  echo "  -u, --uninstall       卸载 Dnsmasq + SNI Proxy"
+  echo "  -h, --help            help"
+  echo "  -i, --install         install Dnsmasq + SNI Proxy"
+  echo "  -u, --uninstall       uinstall Dnsmasq + SNI Proxy"
   echo ""
 }
 
 Install() {
   Hello
-  echo "检测您的系統..."
+  echo "Your System..."
   if ! install_check; then
       echo -e "[${red}Error${plain}] Your OS is not supported to run it!"
       echo "Please change to CentOS 6+/Debian 8+/Ubuntu 16+ and try again."
@@ -224,9 +224,9 @@ Install() {
   fi
   disable_selinux
   echo -e "[${green}Info${plain}] Checking the system complete..."
-  echo "安装依赖软件..."
+  echo "Install..."
   install_dependencies
-  echo "安装Dnsmasq..."
+  echo "Install Dnsmasq..."
   if check_sys packageManager yum; then
       error_detect_depends "yum -y install dnsmasq"
   elif check_sys packageManager apt; then
@@ -248,7 +248,7 @@ Install() {
       systemctl enable dnsmasq
       systemctl restart dnsmasq
   fi
-  echo "安装SNI Proxy..."
+  echo "Install SNI Proxy..."
   if check_sys packageManager yum; then
     rpm -qa | grep sniproxy >/dev/null 2>&1
     if [ $? -eq 0 ]; then
@@ -285,12 +285,12 @@ Install() {
   if [ ! -e /var/log/sniproxy ]; then
     mkdir /var/log/sniproxy
   fi
-  echo "检查安装情况..."
-  [ ! -f /usr/sbin/sniproxy ] && echo -e "[${red}Error${plain}] 安装Sniproxy出现问题." && exit 1
+  echo "Install..."
+  [ ! -f /usr/sbin/sniproxy ] && echo -e "[${red}Error${plain}] Install Sniproxy error." && exit 1
   echo -e "[${green}Info${plain}] Checking the sniproxy services complete..."
-  [ ! -f /etc/init.d/sniproxy ] && echo -e "[${red}Error${plain}] 下载启动文件时出现问题，请检查主机网络连接." && exit 1
+  [ ! -f /etc/init.d/sniproxy ] && echo -e "[${red}Error${plain}] Internet connection error." && exit 1
   echo -e "[${green}Info${plain}] Checking the sniproxy startup file complete..."
-  echo "启动 SNI Proxy 服务..."
+  echo "Start SNI Proxy Service..."
   if check_sys packageManager yum; then
     if centosversion 6; then
       chkconfig sniproxy on > /dev/null 2>&1
@@ -318,21 +318,21 @@ Install() {
   fi
   echo -e "[${green}Info${plain}] dnsmasq and sniproxy startup complete..."
   if check_sys packageManager yum; then
-      echo "检查防火墙端口..."
+      echo "Check firewall..."
       config_firewall
       echo -e "[${green}Info${plain}] Firewall port detection complete..."
   fi
   echo ""
-  echo -e "${yellow}Dnsmasq + SNI Proxy 已完成安装并启动！${plain}"
+  echo -e "${yellow}Dnsmasq + SNI Proxy is OK！${plain}"
   echo ""
-  echo -e "${yellow}Dnsmasq 监听IP：$(get_ip)${plain}"
+  echo -e "${yellow}Dnsmasq Listen IP：$(get_ip)${plain}"
   echo ""
 }
 
 Uninstall() {
   Hello
-  echo -e "${yellow}确定卸载Dnsmasq和SNI Proxy?${plain}"
-  echo -e "${yellow}[Enter] 确定 [N] 取消${plain}"
+  echo -e "${yellow}Uinstall Dnsmasq&SNI Proxy?${plain}"
+  echo -e "${yellow}[Enter] OK [N] NO${plain}"
   read selection
   if [[ -z $selection ]]; then
     echo -e "[${green}Info${plain}] Stoping dnsmasq and sniproxy"
