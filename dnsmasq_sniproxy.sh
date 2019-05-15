@@ -222,6 +222,11 @@ Install() {
       echo "Please change to CentOS 6+/Debian 8+/Ubuntu 16+ and try again."
       exit 1
   fi
+  if check_sys packageManager yum; then
+		error_detect_depends "yum -y install net-tools"
+  elif check_sys packageManager apt; then
+		error_detect_depends "apt-get -y install net-tools"
+  fi
   disable_selinux
   echo -e "[${green}Info${plain}] Checking the system complete..."
   echo "Install..."
