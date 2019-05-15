@@ -7,7 +7,7 @@ green='\033[0;32m'
 yellow='\033[0;33m'
 plain='\033[0m'
 
-[[ $EUID -ne 0 ]] && echo -e "[${red}Error${plain}] 需要root用户来执行该脚本!" && exit 1
+[[ $EUID -ne 0 ]] && echo -e "[${red}Error${plain}] You have use root!" && exit 1
 
 disable_selinux(){
     if [ -s /etc/selinux/config ] && grep 'SELINUX=enforcing' /etc/selinux/config; then
